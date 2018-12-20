@@ -1,53 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DragHelper : MonoBehaviour, IPointerDownHandler, IDragHandler {
+public class DragHelper : MonoBehaviour
+{
 
 	private Vector2 pointerOffset;
-	private RectTransform canvasRectTransform;
-	private RectTransform panelRectTransform;
 
-	public void Awake()
+	public RectTransform canvasRectTransform;
+	public RectTransform windowRectTransform;
+
+	public void OnDrag(BaseEventData data)
 	{
-		Canvas canvas = GetComponentInParent<Canvas>();
-
-		if (canvas != null)
-		{
-			canvasRectTransform = canvas.transform as RectTransform;
-			panelRectTransform = transform.parent as RectTransform;
-		}
-	}
-
-	public void OnDrag(PointerEventData eventData)
-	{
-		if (panelRectTransform == null)
-		{
-			return;
-		}
+		PointerEventData eventData = (PointerEventData)data;
 
 		Vector2 pointerPosition = ClampToWindow(eventData);
 
 		Vector2 localPointerPosition;
 
 		if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-			canvasRectTransform, 
+			canvasRectTransform,
 			pointerPosition,
-			eventData.pressEventCamera, 
+			eventData.pressEventCamera,
 			out localPointerPosition)
 		)
 		{
-			panelRectTransform.localPosition = localPointerPosition - pointerOffset;
+			windowRectTransform.localPosition = localPointerPosition - pointerOffset;
 		}
 	}
 
-	public void OnPointerDown(PointerEventData eventData)
+	public void OnPointerDown(BaseEventData data)
 	{
-		panelRectTransform.SetAsLastSibling();
+		PointerEventData eventData = (PointerEventData)data;
+
+		Debug.Log(eventData);
+
+		transform.parent.SetAsLastSibling();
 		RectTransformUtility.ScreenPointToLocalPointInRectangle(
-			panelRectTransform,
+			windowRectTransform,
 			eventData.position,
 			eventData.pressEventCamera,
 			out pointerOffset);
