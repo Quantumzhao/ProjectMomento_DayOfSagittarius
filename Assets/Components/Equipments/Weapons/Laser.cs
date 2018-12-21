@@ -28,17 +28,32 @@ public class Laser : MonoBehaviour, IActivate, IWeapon
 		}
 	}
 
+	private float range;
 	public float Range
 	{
 		get
 		{
-			throw new NotImplementedException();
+			return range;
+		}
+
+		private set
+		{
+			range = value;
 		}
 	}
 
-	public float SteeringRange()
+	private float steeringRange;
+	public float SteeringRange
 	{
-		throw new NotImplementedException();
+		get
+		{
+			return steeringRange;
+		}
+
+		private set
+		{
+			steeringRange = value;
+		}
 	}
 
 	bool IActivate.Activate()

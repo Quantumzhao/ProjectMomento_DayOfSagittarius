@@ -19,14 +19,20 @@ public class KeTorpedo : MonoBehaviour, IActivate, IWeapon
 		}
 	}
 
-	public float Range()
+	float IWeapon.Range
 	{
-		throw new System.NotImplementedException();
+		get
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 
-	public float SteeringRange()
+	float IWeapon.SteeringRange
 	{
-		throw new System.NotImplementedException();
+		get
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 
 	public bool Activate()
