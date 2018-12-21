@@ -12,5 +12,12 @@ public class Behavior : MonoBehaviour {
 	public void CloseMenu(BaseEventData rawData)
 	{
 		PopMenu.SetActive(false);
+
+		GameObject highlight = GameObject.Find("Highlight");
+
+		if (highlight != null)
+		{
+			highlight.SetActive(false);
+		}
 	}
 }

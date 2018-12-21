@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 	private void Awake()
 	{
 		TerminalOutput = GameObject.Find("Output").GetComponent<Text>();
+
+		Cursor.SetCursor(Resources.Load<Texture2D>("Normal"), new Vector2(0f, 0f), CursorMode.ForceSoftware);
 	}
 
 	public void UpdateFlagship(GameObject newFlagship)

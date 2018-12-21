@@ -1460,7 +1460,6 @@ GameObject:
   - component: {fileID: 1257246205}
   - component: {fileID: 1257246209}
   - component: {fileID: 1257246204}
-  - component: {fileID: 1257246203}
   - component: {fileID: 1257246208}
   - component: {fileID: 1257246210}
   m_Layer: 0
@@ -1470,18 +1469,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1257246203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257246202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30006682802b5c248b01d0d4ffa94064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1257246204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,6 +1619,17 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11500000, guid: 7b596c2e23be1404eb2f8c7f622bacac, type: 3}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

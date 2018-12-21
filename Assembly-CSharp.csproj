@@ -74,7 +74,6 @@
     <Compile Include="Assets\Components\UI\Window\Scripts\DragHelper.cs" />
     <Compile Include="Assets\Components\UI\Window\Title Bar\Close Button\Invokation.cs" />
     <Compile Include="Assets\Components\Units\Flagship.cs" />
-    <Compile Include="Assets\Components\Units\Primitive Unit\Equipments.cs" />
     <Compile Include="Assets\Components\Units\Primitive Unit\InteractiveEvents.cs" />
     <Compile Include="Assets\Components\Units\Primitive Unit\Values.cs" />
     <Compile Include="Assets\GameManager.cs" />
