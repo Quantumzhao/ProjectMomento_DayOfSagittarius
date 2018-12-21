@@ -7,6 +7,8 @@ public class Behavior : MonoBehaviour {
 
 	public GameObject PopMenu;
 
+	public GameObject Invoker;
+
 	public void OnClick(BaseEventData rawData)
 	{
 		PopMenu.SetActive(false);

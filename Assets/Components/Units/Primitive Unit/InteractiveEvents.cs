@@ -10,7 +10,7 @@ public class InteractiveEvents : MonoBehaviour {
 
 	public GameObject PopMenu;
 
-	public Transform Unit;
+	public GameObject Unit;
 
 	public void OnPointerClick(BaseEventData rawData)
 	{
@@ -18,7 +18,7 @@ public class InteractiveEvents : MonoBehaviour {
 
 		if (data.button == PointerEventData.InputButton.Right)
 		{
-			PopMenu.transform.position = Unit.position;
+			PopMenu.transform.position = Unit.transform.position;
 
 			PopMenu.SetActive(true);
 		}

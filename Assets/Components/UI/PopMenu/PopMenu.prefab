@@ -709,6 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f1f9ade3ef2ca44bf82caa697f34ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PopMenu: {fileID: 0}
 --- !u!1 &2639940184277965673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,7 +1222,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2639940184895644533}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &2639940185019505801

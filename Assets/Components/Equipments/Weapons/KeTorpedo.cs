@@ -4,7 +4,7 @@ using UnityEngine;
 using Assets.Components.Equipments;
 using Assets.Components.Equipments.Weapons;
 
-public class KeTorpedo : MonoBehaviour, IActivate, IWeapon
+public class KeTorpedo : MonoBehaviour, IWeapon
 {
 	public float Bearing
 	{
