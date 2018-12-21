@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Components.Equipments;
 
-public class Radar : MonoBehaviour {
+public class Radar : MonoBehaviour, IActivate
+{
+	public bool Activate()
+	{
+		GameManager.WriteLine("Radar Activated");
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		return true;
 	}
 }

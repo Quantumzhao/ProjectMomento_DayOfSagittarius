@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Components.Equipments;
 using Assets.Components.Equipments.Weapons;
 
 public class KeTorpedo : MonoBehaviour, IWeapon
@@ -37,6 +36,8 @@ public class KeTorpedo : MonoBehaviour, IWeapon
 
 	public bool Activate()
 	{
+		GameManager.WriteLine("Boom");
+
 		return true;
 	}
 }

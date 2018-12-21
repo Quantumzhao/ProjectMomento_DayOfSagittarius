@@ -56,8 +56,10 @@ public class Laser : MonoBehaviour, IWeapon
 		}
 	}
 
-	bool IActivate.Activate()
+	public bool Activate()
 	{
+		GameManager.WriteLine("Buzz");
+
 		return true;
 	}
 }

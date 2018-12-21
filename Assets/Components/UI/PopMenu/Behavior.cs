@@ -9,7 +9,7 @@ public class Behavior : MonoBehaviour {
 
 	public GameObject Invoker;
 
-	public void OnClick(BaseEventData rawData)
+	public void CloseMenu(BaseEventData rawData)
 	{
 		PopMenu.SetActive(false);
 	}

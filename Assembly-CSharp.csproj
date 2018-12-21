@@ -67,7 +67,10 @@
     <Compile Include="Assets\Components\Equipments\Weapons\IWeapon.cs" />
     <Compile Include="Assets\Components\Equipments\Weapons\KeTorpedo.cs" />
     <Compile Include="Assets\Components\Equipments\Weapons\Laser.cs" />
+    <Compile Include="Assets\Components\UI\PopMenu\Attack\Primary.cs" />
+    <Compile Include="Assets\Components\UI\PopMenu\Attack\Secondary.cs" />
     <Compile Include="Assets\Components\UI\PopMenu\Behavior.cs" />
+    <Compile Include="Assets\Components\UI\PopMenu\Scan\RegionalScan.cs" />
     <Compile Include="Assets\Components\UI\Window\Scripts\DragHelper.cs" />
     <Compile Include="Assets\Components\UI\Window\Title Bar\Close Button\Invokation.cs" />
     <Compile Include="Assets\Components\Units\Flagship.cs" />
@@ -81,11 +84,11 @@
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>

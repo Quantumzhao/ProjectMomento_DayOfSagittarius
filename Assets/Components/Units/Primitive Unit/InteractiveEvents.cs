@@ -21,6 +21,8 @@ public class InteractiveEvents : MonoBehaviour {
 			PopMenu.transform.position = Unit.transform.position;
 
 			PopMenu.SetActive(true);
+
+			PopMenu.GetComponent<Behavior>().Invoker = Unit;
 		}
 	}
 }
