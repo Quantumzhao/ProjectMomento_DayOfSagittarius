@@ -5,7 +5,7 @@ using Assets.Components.Equipments;
 
 public class Radar : MonoBehaviour, IActivate
 {
-	public bool Activate()
+	public bool Activate(Transform invoker_transform)
 	{
 		GameManager.WriteLine("Radar Activated");
 

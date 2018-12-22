@@ -34,7 +34,7 @@ public class KeTorpedo : MonoBehaviour, IWeapon
 		}
 	}
 
-	public bool Activate()
+	public bool Activate(Transform invoker_Transform)
 	{
 		GameManager.WriteLine("Boom");
 

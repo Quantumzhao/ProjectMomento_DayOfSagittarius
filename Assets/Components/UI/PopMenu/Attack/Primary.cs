@@ -18,6 +18,6 @@ public class Primary : MonoBehaviour
 			.GetChild(0)
 			.gameObject
 			.GetComponent<Laser>()
-			.Activate();
+			.Activate(invoker.transform);
 	}
 }

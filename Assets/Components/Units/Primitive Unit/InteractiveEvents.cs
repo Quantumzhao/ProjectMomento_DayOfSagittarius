@@ -37,11 +37,7 @@ public class InteractiveEvents : MonoBehaviour {
 
 		if (data.button == PointerEventData.InputButton.Right)
 		{
-			PopMenu.transform.position = Unit.transform.position;
-
-			PopMenu.SetActive(true);
-
-			PopMenu.GetComponent<Behavior>().Invoker = Unit;
+			showPopMenu();
 		}
 	}
 
@@ -53,5 +49,14 @@ public class InteractiveEvents : MonoBehaviour {
 
 			highlight.SetActive(true);
 		}
+	}
+
+	private void showPopMenu()
+	{
+		PopMenu.transform.position = Unit.transform.position;
+
+		PopMenu.SetActive(true);
+
+		PopMenu.GetComponent<Behavior>().Invoker = Unit;
 	}
 }

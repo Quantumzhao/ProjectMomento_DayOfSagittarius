@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Components.Equipments
 {
@@ -17,6 +18,6 @@ namespace Assets.Components.Equipments
 		///		If this equipment is successfully activated, return true
 		///		Otherwise, false. 
 		/// </returns>
-		bool Activate();
+		bool Activate(Transform transform);
 	}
 }

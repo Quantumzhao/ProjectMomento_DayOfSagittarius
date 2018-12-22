@@ -18,6 +18,6 @@ public class Secondary : MonoBehaviour
 			.GetChild(1)
 			.gameObject
 			.GetComponent<KeTorpedo>()
-			.Activate();
+			.Activate(invoker.transform);
 	}
 }

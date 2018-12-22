@@ -17,6 +17,6 @@ public class RegionalScan : MonoBehaviour
 			.GetChild(1)
 			.gameObject
 			.GetComponent<Radar>()
-			.Activate();
+			.Activate(invoker.transform);
 	}
 }
