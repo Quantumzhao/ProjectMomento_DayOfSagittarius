@@ -5,18 +5,16 @@ using UnityEngine.EventSystems;
 
 public class RegionalScan : MonoBehaviour
 {
-	private GameObject invoker;
-
     public void OnPointerClick(BaseEventData rawData)
 	{
-		invoker = transform.parent.parent.GetComponent<Behavior>().Invoker;
-
-		invoker
+		/*GameManager.SelectedGameObject
 			.transform
 			.GetChild(0)
 			.GetChild(1)
 			.gameObject
 			.GetComponent<Radar>()
-			.Activate(invoker.transform);
+			.Activate();*/
+
+		ResourceManager.SelectedGameObject.GetComponentInChildren<Radar>().Activate();
 	}
 }

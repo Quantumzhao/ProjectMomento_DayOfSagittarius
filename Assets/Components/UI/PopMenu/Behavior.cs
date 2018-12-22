@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Behavior : MonoBehaviour {
-
-	public GameObject PopMenu;
-
-	public GameObject Invoker;
-
-	public void CloseMenu(BaseEventData rawData)
+namespace UI.PopMenu
+{
+	public class Behavior : MonoBehaviour
 	{
-		PopMenu.SetActive(false);
-
-		GameObject highlight = GameObject.Find("Highlight");
-
-		if (highlight != null)
+		public void Close()
 		{
-			highlight.SetActive(false);
+			gameObject.SetActive(false);
+		}
+
+		public void Show()
+		{
+			gameObject.transform.position = ResourceManager.SelectedGameObject.transform.position;
+
+			gameObject.SetActive(true);
 		}
 	}
 }

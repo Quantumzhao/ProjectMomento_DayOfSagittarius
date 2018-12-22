@@ -18,6 +18,6 @@ namespace Assets.Components.Equipments
 		///		If this equipment is successfully activated, return true
 		///		Otherwise, false. 
 		/// </returns>
-		bool Activate(Transform transform);
+		bool Activate();
 	}
 }

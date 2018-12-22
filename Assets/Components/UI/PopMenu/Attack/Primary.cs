@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UI.PopMenu;
 
 public class Primary : MonoBehaviour
 {
-	private GameObject invoker;
-
 	public void OnPointerClick(BaseEventData rawData)
 	{
-		invoker = transform.parent.parent.GetComponent<Behavior>().Invoker;
-
-		invoker
+		/*GameManager.SelectedGameObject
 			.transform
 			.GetChild(0)
 			.GetChild(0)
 			.GetChild(0)
 			.gameObject
 			.GetComponent<Laser>()
-			.Activate(invoker.transform);
+			.Activate();*/
+
+		ResourceManager.SelectedGameObject.GetComponentInChildren<Laser>().Activate();
 	}
 }

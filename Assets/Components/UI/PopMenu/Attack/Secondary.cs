@@ -5,19 +5,17 @@ using UnityEngine.EventSystems;
 
 public class Secondary : MonoBehaviour
 {
-	private GameObject invoker;
-
     public void OnPointerClick(BaseEventData rawData)
 	{
-		invoker = transform.parent.parent.GetComponent<Behavior>().Invoker;
-
-		invoker
+		/*GameManager.SelectedGameObject
 			.transform
 			.GetChild(0)
 			.GetChild(0)
 			.GetChild(1)
 			.gameObject
 			.GetComponent<KeTorpedo>()
-			.Activate(invoker.transform);
+			.Activate();*/
+
+		ResourceManager.SelectedGameObject.GetComponentInChildren<KeTorpedo>().Activate();
 	}
 }

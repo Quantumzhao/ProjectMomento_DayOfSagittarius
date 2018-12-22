@@ -17,10 +17,4 @@ public class BeamHelper : MonoBehaviour
 	{
 		Length = 0f;
 	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
 }

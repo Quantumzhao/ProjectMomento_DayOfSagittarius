@@ -56,11 +56,11 @@ public class Laser : MonoBehaviour, IWeapon
 		}
 	}
 
-	public bool Activate(Transform invoker_Transform)
+	public bool Activate()
 	{
-		GameManager.WriteLine("Buzz");
+		Console.WriteLine("Buzz");
 
-		instantiateLaserBeam(invoker_Transform);
+		instantiateLaserBeam(ResourceManager.SelectedGameObject.transform);
 
 		return true;
 	}
