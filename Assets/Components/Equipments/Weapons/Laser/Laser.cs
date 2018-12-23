@@ -70,6 +70,6 @@ public class Laser : MonoBehaviour, IWeapon
 	{
 		GameObject beam = Instantiate((GameObject)Resources.Load("Beam"));
 
-		GetComponent<BeamHelper>().Invoker = invoker;
+		beam.GetComponent<BeamHelper>().Invoker = invoker;
 	}
 }
