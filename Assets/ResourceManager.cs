@@ -10,12 +10,14 @@ public class ResourceManager : MonoBehaviour
 	public static GameObject Flagship;
 	public static GameObject SelectedGameObject;
 	public static GameObject PopMenu;
+	public static GameObject Camera;
 
 	private void Awake()
 	{
 		initConsole();
 		initUnitHighlight();
 		initPopMenu();
+		initCamera();
 	}
 
 	public void Start()
@@ -46,6 +48,11 @@ public class ResourceManager : MonoBehaviour
 		PopMenu = GameObject.Find("PopMenu");
 
 		PopMenu.SetActive(false);
+	}
+
+	private void initCamera()
+	{
+		Camera = GameObject.Find("Main Camera");
 	}
 }
 

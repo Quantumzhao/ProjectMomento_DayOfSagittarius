@@ -34,8 +34,6 @@ public class DragHelper : MonoBehaviour
 	{
 		PointerEventData eventData = (PointerEventData)data;
 
-		Debug.Log(eventData);
-
 		transform.parent.SetAsLastSibling();
 		RectTransformUtility.ScreenPointToLocalPointInRectangle(
 			windowRectTransform,
