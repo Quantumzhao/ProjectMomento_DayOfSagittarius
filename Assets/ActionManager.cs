@@ -8,7 +8,7 @@ public class ActionManager : MonoBehaviour {
 
 	public void Awake()
 	{
-
+		initCursor();
 	}
 
 	public void UpdateFlagship(GameObject newFlagship)

@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Assets.Components.Equipments;
 using Assets.Components.Equipments.Weapons;
+using static Constants;
 
 public class Laser : MonoBehaviour, IWeapon
 {
@@ -60,19 +61,15 @@ public class Laser : MonoBehaviour, IWeapon
 	{
 		Console.WriteLine("Buzz");
 
-		instantiateLaserBeam(ResourceManager.SelectedGameObject.transform);
+		instantiateLaserBeam(ResourceManager.SelectedGameObject);
 
 		return true;
 	}
 
-	private void instantiateLaserBeam(Transform invoker_Transform)
+	private void instantiateLaserBeam(GameObject invoker)
 	{
-		GameObject beam = (GameObject)Resources.Load("Beam");
+		GameObject beam = Instantiate((GameObject)Resources.Load("Beam"));
 
-		BeamHelper beamHelper = beam.GetComponent<BeamHelper>();
-
-		beamHelper.Orientation = invoker_Transform.rotation.z;
-
-		beamHelper.Beam = beam;
+		GetComponent<BeamHelper>().Invoker = invoker;
 	}
 }

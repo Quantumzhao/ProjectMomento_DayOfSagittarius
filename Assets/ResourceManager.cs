@@ -65,3 +65,14 @@ public class Console
 		TerminalOutput.text += ("\n" + DateTime.Now.ToLongTimeString() + "\t" + message);
 	}
 }
+
+public static class Constants
+{
+	public const float LightSpeed = 1f;
+}
+
+public struct Velocity
+{
+	public float Argument;
+	public float Modulus;
+}

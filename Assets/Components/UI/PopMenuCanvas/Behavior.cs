@@ -26,13 +26,12 @@ namespace UI.PopMenuCanvas
 				return;
 			}
 
-			Vector2 localPosition;
 
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(
 				(RectTransform)gameObject.transform,
 				data.position,
 				data.pressEventCamera,
-				out localPosition
+				out Vector2 localPosition
 			);
 
 			{
