@@ -43,8 +43,20 @@ public class KeTorpedo : MonoBehaviour, IWeapon
 		return true;
 	}
 
-	private void instantiateTorpedo(GameObject target)
+	public bool Activate(GameObject target)
 	{
+		instantiateTorpedo(ResourceManager.SelectedGameObject, target);
 
+		return true;
+	}
+
+	private void instantiateTorpedo(GameObject invoker, GameObject target = null)
+	{
+		GameObject torpedo = Instantiate((GameObject)Resources.Load("Torpedo"));
+
+		TorpedoHelper torpedoHelper = torpedo.GetComponent<TorpedoHelper>();
+
+		torpedoHelper.Invoker = invoker;
+		torpedoHelper.Target = target;
 	}
 }
