@@ -7,9 +7,9 @@ public class TorpedoHelper : MonoBehaviour
 {
 	private Velocity v = new Velocity();
 	private Vector2 RectCoordVelocity;
-	private float alpha = 15f;
-	private float omega = 0f;
-	private float theta;
+	private float alpha = 15f;	// Angular acceleration
+	private float omega = 0f;	// Angular velocity
+	private float theta;		// Anglular Displacement
 
 	private Rigidbody2D rb2D;
 
@@ -27,9 +27,22 @@ public class TorpedoHelper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		
+		if (DrunkardAlgorithm())
+		{
+			omega += alpha;
+		}
+		else
+		{
+			omega -= alpha;
+		}
 
+		RectCoordVelocity = new Vector2
+		(
+			v.Modulus * Mathf.Cos(Mathf.Deg2Rad * omega),
+			v.Modulus * Mathf.Cos(Mathf.Deg2Rad * omega)
+		);
 
+		rb2D.velocity = RectCoordVelocity;
     }
 
 	private void initTransform()
@@ -57,6 +70,13 @@ public class TorpedoHelper : MonoBehaviour
 		rb2D.velocity = RectCoordVelocity;
 	}
 
+	/// <summary>
+	///		UNFINISHED, may include tons of bug
+	/// </summary>
+	/// <returns>
+	///		true: Sign of angular acceleration should not be changed
+	///		false: vice versa
+	/// </returns>
 	private bool DrunkardAlgorithm()
 	{
 		Vector2 diffInPos = Target.transform.position - gameObject.transform.position;
@@ -65,7 +85,7 @@ public class TorpedoHelper : MonoBehaviour
 
 		float minTheta = omega * Mathf.Sqrt(Mathf.Abs(2 * diffInTheta / alpha));
 
-		if (minTheta < diffInTheta)
+		if (Mathf.Abs(minTheta) < Mathf.Abs(diffInTheta))
 		{
 			return true;
 		}
