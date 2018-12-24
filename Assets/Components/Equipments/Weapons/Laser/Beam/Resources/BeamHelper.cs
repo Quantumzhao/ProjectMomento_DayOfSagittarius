@@ -38,7 +38,8 @@ public class BeamHelper : MonoBehaviour
 
 		halfLength = traversedTime * LightSpeed * halfDispersion / 100;
 
-		boxCollider2D.size.Set(0.05f, 2 * halfLength);
+		boxCollider2D.size = new Vector2(0.05f, 2 * halfLength);
+		Debug.Log(boxCollider2D.size.x.ToString() + boxCollider2D.size.y.ToString());
 
 		Vector2 start = new Vector2
 		(
