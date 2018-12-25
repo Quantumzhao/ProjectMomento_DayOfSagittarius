@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\ActionManager.cs" />
     <Compile Include="Assets\Components\Equipments\IActivate.cs" />
+    <Compile Include="Assets\Components\Equipments\Radars\EMWave\EMWaveHelper.cs" />
     <Compile Include="Assets\Components\Equipments\Radars\Radar.cs" />
     <Compile Include="Assets\Components\Equipments\Radio\Radio.cs" />
     <Compile Include="Assets\Components\Equipments\Weapons\IWeapon.cs" />
