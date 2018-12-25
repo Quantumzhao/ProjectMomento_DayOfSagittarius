@@ -7,16 +7,6 @@ namespace UI.PopMenuCanvas
 {
 	public class Behavior : MonoBehaviour
 	{
-		private Vector2 pointerOffset;
-
-		public void OnPointerClick(BaseEventData eventData)
-		{
-			PointerEventData data = (PointerEventData)eventData;
-
-			ResourceManager.UnitHighlight.GetComponent<Highlight.Behavior>().Close();
-			ResourceManager.PopMenu.GetComponent<PopMenu.Behavior>().Close();
-		}
-
 		public void OnDrag(BaseEventData rawData)
 		{
 			PointerEventData data = (PointerEventData)rawData;
@@ -26,34 +16,15 @@ namespace UI.PopMenuCanvas
 				return;
 			}
 
-
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(
-				(RectTransform)gameObject.transform,
-				data.position,
-				data.pressEventCamera,
-				out Vector2 localPosition
-			);
-
-			{
-				ResourceManager.Camera.transform.position = localPosition - pointerOffset;
-			}
+			ResourceManager.Camera.transform.position -= (Vector3)data.delta / 100;
 		}
 
 		public void OnPointerDown(BaseEventData rawData)
 		{
 			PointerEventData data = (PointerEventData)rawData;
 
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(
-				(RectTransform)gameObject.transform,
-				data.position,
-				data.pressEventCamera,
-				out pointerOffset
-			);
-
-			Console.WriteLine(data.position.ToString());
-			Console.WriteLine(pointerOffset.ToString());
+			ResourceManager.UnitHighlight.GetComponent<Highlight.Behavior>().Close();
+			ResourceManager.PopMenu.GetComponent<PopMenu.Behavior>().Close();
 		}
 	}
-
-	
 }
