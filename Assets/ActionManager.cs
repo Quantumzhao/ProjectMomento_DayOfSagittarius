@@ -10,6 +10,8 @@ public class ActionManager : MonoBehaviour {
 	public void Awake()
 	{
 		initCursor();
+
+		testModule(false);
 	}
 
 	public void UpdateFlagship(GameObject newFlagship)
@@ -34,12 +36,32 @@ public class ActionManager : MonoBehaviour {
 	{
 		Command.ExecuteCommand(message);
 	}
+
+	private void testModule(bool isToggled = false)
+	{
+		if (!isToggled)
+		{
+			return;
+		}
+
+		#region TestSomeCode
+
+		GameObject target = GameObject.Find("Target");
+
+		target.GetComponent<Rigidbody2D>().velocity = new Vector2(0.5f, 0);
+
+		#endregion
+	}
 }
 
 public static class Command
 {
 	private delegate void positionHandler(ref Vector2 position);
 	private static positionHandler positionDelegate;
+
+	private delegate void manipulationHandler(GameObject gameObject, params object[] param);
+	private delegate void changeHandler(GameObject gameObject, manipulationHandler manipulation);
+	private static event changeHandler change_Event;
 
 	public static void ExecuteCommand(string command)
 	{
@@ -61,6 +83,10 @@ public static class Command
 					help(commandList[1]);
 				}
 				return;
+
+			case "CHNG":
+				changeSomething(commandList);
+				break;
 
 			default:
 				break;
@@ -85,6 +111,20 @@ public static class Command
 	private static void help(string param = "")
 	{
 
+	}
+
+	private static void changeSomething(string[] commandList)
+	{
+		switch (commandList[1])
+		{
+			case "POSN":
+				manipulationHandler changePositionDelegate =
+					(GameObject gameObject, object[] vs) => { };
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	public enum Commands

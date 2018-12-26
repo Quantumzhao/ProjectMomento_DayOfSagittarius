@@ -83,6 +83,7 @@
     <Compile Include="Assets\Components\Units\Primitive Unit\Values.cs" />
     <Compile Include="Assets\ResourceManager.cs" />
     <Compile Include="Assets\SVGImage\SVGImage.cs" />
+    <Compile Include="Assets\TerminalEventArgs.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

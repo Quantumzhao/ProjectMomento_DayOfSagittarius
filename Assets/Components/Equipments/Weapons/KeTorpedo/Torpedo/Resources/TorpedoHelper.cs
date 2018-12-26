@@ -7,9 +7,11 @@ public class TorpedoHelper : MonoBehaviour
 {
 	private Velocity v = new Velocity();
 	private Vector2 RectCoordVelocity;
-	private float alpha = 15f;	// Angular acceleration
-	private float omega = 0f;	// Angular velocity
-	private float theta;		// Anglular Displacement
+	private float alpha = 8f;   // Angular acceleration. NOTE: This is a numerical value
+								//private float omega = 0f;	// Angular velocity
+								//private float theta;		// Anglular Displacement
+
+	private float thrust = 0.1f;
 
 	private Rigidbody2D rb2D;
 	private Radar radar;
@@ -21,31 +23,54 @@ public class TorpedoHelper : MonoBehaviour
     void Start()
     {
 		initTransform();
-		initVelocity();
 		initRigidBody2D();
+		initVelocity();
 		initRadar();
+		initTarget();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-		if (DrunkardAlgorithm())
+		//v.Argument = rb2D.rotation;
+
+		/*if (DrunkardAlgorithm())
 		{
-			omega += alpha;
+			rb2D.angularVelocity += Mathf.Sign(rb2D.angularVelocity) * alpha * Time.deltaTime;
 		}
 		else
 		{
-			omega -= alpha;
+			rb2D.angularVelocity -= Mathf.Sign(rb2D.angularVelocity) * alpha * Time.deltaTime;
 		}
+
+		//v.Argument += omega * Time.deltaTime;
 
 		RectCoordVelocity = new Vector2
 		(
-			v.Modulus * Mathf.Cos(Mathf.Deg2Rad * omega),
-			v.Modulus * Mathf.Cos(Mathf.Deg2Rad * omega)
+			v.Modulus * Mathf.Cos(Mathf.Deg2Rad * v.Argument),
+			v.Modulus * Mathf.Sin(Mathf.Deg2Rad * v.Argument)
 		);
 
-		rb2D.velocity = RectCoordVelocity;
-    }
+		rb2D.velocity = RectCoordVelocity;*/
+
+		
+
+		Vector2 diffInPos = Target.transform.position - gameObject.transform.position;
+
+		float diffInTheta = Mathf.Atan2(diffInPos.y, diffInPos.x) * Mathf.Rad2Deg - rb2D.rotation;
+
+		float minTheta = alpha * Mathf.Pow(rb2D.angularVelocity / alpha, 2) / 2;
+
+		if (Mathf.Abs(minTheta) < Mathf.Abs(diffInTheta))
+		{
+			rb2D.AddTorque(Mathf.Sign(rb2D.angularVelocity) * alpha);
+		}
+		else
+		{
+			rb2D.AddTorque(-Mathf.Sign(rb2D.angularVelocity) * alpha);
+		}
+
+		rb2D.AddForce(transform.up * thrust);
+	}
 
 	private void initTransform()
 	{
@@ -55,26 +80,31 @@ public class TorpedoHelper : MonoBehaviour
 
 	private void initVelocity()
 	{
-		v.Argument = Invoker.transform.rotation.eulerAngles.z;
+		/*v.Argument = Invoker.transform.rotation.eulerAngles.z;
 
 		v.Modulus = LightSpeed;
 
 		RectCoordVelocity = new Vector2(
 			v.Modulus * Mathf.Cos(Mathf.Deg2Rad * v.Argument),
 			v.Modulus * Mathf.Sin(Mathf.Deg2Rad * v.Argument)
-		);
+		);*/
+
+		rb2D.velocity = new Vector2(LightSpeed, 0);
 	}
 
 	private void initRigidBody2D()
 	{
 		rb2D = gameObject.GetComponent<Rigidbody2D>();
-
-		rb2D.velocity = RectCoordVelocity;
 	}
 
 	private void initRadar()
 	{
 		radar = gameObject.GetComponent<Radar>();
+	}
+
+	private void initTarget()
+	{
+		Target = GameObject.Find("Target");
 	}
 
 	/// <summary>
@@ -89,9 +119,9 @@ public class TorpedoHelper : MonoBehaviour
 	{
 		Vector2 diffInPos = Target.transform.position - gameObject.transform.position;
 
-		float diffInTheta = Mathf.Tan(diffInPos.y / diffInPos.x);
+		float diffInTheta = Mathf.Atan2(diffInPos.y, diffInPos.x) * Mathf.Rad2Deg - rb2D.rotation;
 
-		float minTheta = omega * Mathf.Sqrt(Mathf.Abs(2 * diffInTheta / alpha));
+		float minTheta = alpha * Mathf.Pow(rb2D.angularVelocity / alpha, 2) / 2;
 
 		if (Mathf.Abs(minTheta) < Mathf.Abs(diffInTheta))
 		{
