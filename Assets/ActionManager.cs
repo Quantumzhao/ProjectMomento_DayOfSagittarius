@@ -56,12 +56,11 @@ public class ActionManager : MonoBehaviour {
 
 public static class Command
 {
-	private delegate void positionHandler(ref Vector2 position);
-	private static positionHandler positionDelegate;
-
-	private delegate void manipulationHandler(GameObject gameObject, params object[] param);
-	private delegate void changeHandler(GameObject gameObject, manipulationHandler manipulation);
-	private static event changeHandler change_Event;
+	private delegate void manipulationHandler(TerminalEventArgs args);
+	private delegate void changeHandler(manipulationHandler manipulation, TerminalEventArgs args);
+	private static event changeHandler change_Event = 
+	(manipulationHandler manipulation, TerminalEventArgs args) => 
+	manipulation(args);
 
 	public static void ExecuteCommand(string command)
 	{
@@ -69,10 +68,6 @@ public static class Command
 
 		switch (commandList[0])
 		{
-			case "POSN":
-				positionDelegate = getPosition;
-				break;
-
 			case "HELP":
 				if (commandList.Length == 1)
 				{
@@ -91,19 +86,9 @@ public static class Command
 			default:
 				break;
 		}
-
-		switch (commandList[1])
-		{
-			case "CHNG":
-
-				break;
-
-			default:
-				break;
-		}
 	}
 
-	private static void getPosition(ref Vector2 position)
+	private static void changePosition(TerminalEventArgs args)
 	{
 
 	}
@@ -118,8 +103,20 @@ public static class Command
 		switch (commandList[1])
 		{
 			case "POSN":
-				manipulationHandler changePositionDelegate =
-					(GameObject gameObject, object[] vs) => { };
+				change_Event
+				(
+					new manipulationHandler(changePosition), 
+					new TerminalEventArgs
+					(
+						GameObject.Find(commandList[2]), 
+						new Vector3
+						(
+							float.Parse(commandList[3]),
+							float.Parse(commandList[4]),
+							0f
+						)
+					)
+				);
 				break;
 
 			default:
