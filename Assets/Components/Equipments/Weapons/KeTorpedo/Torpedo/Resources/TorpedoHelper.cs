@@ -5,13 +5,7 @@ using static Constants;
 
 public class TorpedoHelper : MonoBehaviour
 {
-	private Velocity v = new Velocity();
-	private Vector2 RectCoordVelocity;
 	private float alpha = 8f;   // Angular acceleration. NOTE: This is a numerical value
-								//private float omega = 0f;	// Angular velocity
-								//private float theta;		// Anglular Displacement
-
-	private float thrust = 0.1f;
 
 	private Rigidbody2D rb2D;
 	private Radar radar;
@@ -31,45 +25,47 @@ public class TorpedoHelper : MonoBehaviour
 
     void FixedUpdate()
     {
-		//v.Argument = rb2D.rotation;
+		/*
+		 * 我为了在Unity里写这个孤儿追踪模块，已经花了三天了。什么成果都没有。
+		 * 到现在为止一共提出过三个模型，要么用Unity写不出来，要么本身就有缺陷。
+		 * 我承认，我是Unity新手，完全不熟悉框架，自己从头造轮子。
+		 * 我的耐心已经被这个睿智玩意儿消磨完了，我TM不做了。
+		 * 情怀？模拟？都TM狗屁。
+		 * 我就暂且把这个应付的模型放这了，老子不干了。
+		 * 要么哪位好心人打发慈悲帮我解决了这个智障模型，
+		 * 要么我哪天又发昏自己重写这个模块。
+		 */
 
-		/*if (DrunkardAlgorithm())
-		{
-			rb2D.angularVelocity += Mathf.Sign(rb2D.angularVelocity) * alpha * Time.deltaTime;
-		}
-		else
-		{
-			rb2D.angularVelocity -= Mathf.Sign(rb2D.angularVelocity) * alpha * Time.deltaTime;
-		}
+		/*Vector2 diffInPos = Target.transform.position - gameObject.transform.position;
 
-		//v.Argument += omega * Time.deltaTime;
+		float argument_CurrentVelocity = Mathf.Asin(rb2D.velocity.y / rb2D.velocity.magnitude);
 
-		RectCoordVelocity = new Vector2
-		(
-			v.Modulus * Mathf.Cos(Mathf.Deg2Rad * v.Argument),
-			v.Modulus * Mathf.Sin(Mathf.Deg2Rad * v.Argument)
-		);
+		float argument_TargetVelocity = Mathf.Atan2(diffInPos.y, diffInPos.x);
 
-		rb2D.velocity = RectCoordVelocity;*/
+		float diffInArgument = argument_TargetVelocity - argument_CurrentVelocity;
 
-		
+		float numericalSupplementaryVelocity = 2 * LightSpeed * Mathf.Sin(diffInArgument / 2);
+		float absSV = Mathf.Abs(numericalSupplementaryVelocity);
+
+		float argument_SupplementaryVelocity = argument_TargetVelocity - Mathf.PI / 2 - diffInArgument;
+
+		rb2D.AddForce(
+			new Vector2
+			(
+				alpha * Mathf.Cos(argument_SupplementaryVelocity),
+				alpha * Mathf.Sin(argument_SupplementaryVelocity)
+			)
+		);*/
 
 		Vector2 diffInPos = Target.transform.position - gameObject.transform.position;
 
-		float diffInTheta = Mathf.Atan2(diffInPos.y, diffInPos.x) * Mathf.Rad2Deg - rb2D.rotation;
+		float argument_TargetVelocity = Mathf.Atan2(diffInPos.y, diffInPos.x);
 
-		float minTheta = alpha * Mathf.Pow(rb2D.angularVelocity / alpha, 2) / 2;
-
-		if (Mathf.Abs(minTheta) < Mathf.Abs(diffInTheta))
-		{
-			rb2D.AddTorque(Mathf.Sign(rb2D.angularVelocity) * alpha);
-		}
-		else
-		{
-			rb2D.AddTorque(-Mathf.Sign(rb2D.angularVelocity) * alpha);
-		}
-
-		rb2D.AddForce(transform.up * thrust);
+		rb2D.velocity = new Vector2
+		(
+			LightSpeed * Mathf.Cos(argument_TargetVelocity),
+			LightSpeed * Mathf.Sin(argument_TargetVelocity)
+		);
 	}
 
 	private void initTransform()
@@ -80,15 +76,6 @@ public class TorpedoHelper : MonoBehaviour
 
 	private void initVelocity()
 	{
-		/*v.Argument = Invoker.transform.rotation.eulerAngles.z;
-
-		v.Modulus = LightSpeed;
-
-		RectCoordVelocity = new Vector2(
-			v.Modulus * Mathf.Cos(Mathf.Deg2Rad * v.Argument),
-			v.Modulus * Mathf.Sin(Mathf.Deg2Rad * v.Argument)
-		);*/
-
 		rb2D.velocity = new Vector2(LightSpeed, 0);
 	}
 
@@ -107,7 +94,7 @@ public class TorpedoHelper : MonoBehaviour
 		Target = GameObject.Find("Target");
 	}
 
-	/// <summary>
+	/*/// <summary>
 	///		Haven't UNFINISHED yest, may include tons of bug
 	/// </summary>
 	/// <returns>
@@ -131,7 +118,7 @@ public class TorpedoHelper : MonoBehaviour
 		{
 			return false;
 		}
-	}
+	}*/
 
 	private Vector2 GuessTargetPosition()
 	{

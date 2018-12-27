@@ -11,7 +11,7 @@ public class ActionManager : MonoBehaviour {
 	{
 		initCursor();
 
-		testModule(false);
+		testModule(true);
 	}
 
 	public void UpdateFlagship(GameObject newFlagship)
