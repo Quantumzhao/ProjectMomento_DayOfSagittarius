@@ -23,8 +23,11 @@ namespace UI.PopMenuCanvas
 		{
 			PointerEventData data = (PointerEventData)rawData;
 
-			ResourceManager.UnitHighlight.GetComponent<Highlight.Behavior>().Close();
 			ResourceManager.PopMenu.GetComponent<PopMenu.Behavior>().Close();
+
+			ResourceManager.SelectedGameObject?.GetComponent<Unit.Behavior>().LostHighlight();
+
+			ResourceManager.SelectedGameObject = null;
 		}
 	}
 }

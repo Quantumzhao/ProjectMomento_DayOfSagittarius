@@ -18,6 +18,7 @@ namespace Unit
 			switch (data.button)
 			{
 				case PointerEventData.InputButton.Left:
+					enableDragHandler(true);
 					break;
 
 				case PointerEventData.InputButton.Right:
@@ -30,6 +31,25 @@ namespace Unit
 				default:
 					break;
 			}
+		}
+
+		
+
+		public void LostHighlight()
+		{
+			enableDragHandler(false);
+
+			ResourceManager.UnitHighlight.GetComponent<UI.Highlight.Behavior>().Close();
+		}
+
+		private void enableDragHandler(bool value)
+		{
+			GetComponents<CircleCollider2D>()[1].enabled = value;
+		}
+
+		private void changeRotation()
+		{
+
 		}
 	}
 }

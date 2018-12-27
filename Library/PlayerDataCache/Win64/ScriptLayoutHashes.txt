@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Build/Day of Sagittarius.exe
+C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Build/0.0.3.2/Day of Sagittarius.exe
 SceneListBegin?
 Assets/Scenes/Main.unity
 SceneListEnd?
@@ -144,6 +144,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Secondary
+5d7082cbc0acc9fefb32a4457311782a Assembly-CSharp.dll:.TorpedoHelper
 510fefd6a544e16a3ffefa557ddcba39 Unity.TextMeshPro.dll:TMPro.PackageResourceImporterWindow
 aa82b3ce4c0c9b227036c0337315c5d3 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e51c09a4cc447f11db225afcd8e3e490 Unity.TextMeshPro.dll:TMPro.TMP_Settings
@@ -168,6 +169,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UI.Highlight.Behavior
 8ce25186ce75c56046a1616855a7379a Assembly-CSharp.dll:.BeamHelper
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Radio
+ec99937b8ba7ba97757d5712bd99bf66 Assembly-CSharp.dll:.EMWaveHelper
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UI.PopMenu.Behavior
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
