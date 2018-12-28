@@ -80,6 +80,7 @@
     <Compile Include="Assets\Components\UI\Window\Title Bar\Close Button\Invokation.cs" />
     <Compile Include="Assets\Components\Units\Flagship.cs" />
     <Compile Include="Assets\Components\Units\Primitive Unit\Behavior.cs" />
+    <Compile Include="Assets\Components\Units\Primitive Unit\RotationHelper.cs" />
     <Compile Include="Assets\Components\Units\Primitive Unit\Values.cs" />
     <Compile Include="Assets\ResourceManager.cs" />
     <Compile Include="Assets\SVGImage\SVGImage.cs" />

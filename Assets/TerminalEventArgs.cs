@@ -7,33 +7,72 @@ using UnityEngine;
 
 class TerminalEventArgs
 {
-	public TerminalEventArgs(GameObject gameObject, params object[] param)
+	public TerminalEventArgs(string[] commands)
 	{
-		targetObject = gameObject;
-
-		foreach (var item in param)
-		{
-			Add(item);
-		}
+		this.commands = new Queue<string>(commands);
 	}
 
-	public GameObject targetObject { get; set; }
+	private Queue<string> commands;
 
-	private List<object> Params = new List<object>();
-	public void Add(object parameter)
+	private Dictionary<Type, Queue<Type>> arguments = new Dictionary<Type, Queue<Type>>();
+
+	private bool Parser(string command, out Commands ParsedCommand)
 	{
-		Params.Add(parameter);
-	}
-	public T Get<T>(int index)
-	{
-		try
+		switch (command)
 		{
-			return (T)Params[index];
+			case "POSN":
+				ParsedCommand = Commands.POSN;
+				break;
+
+			case "CHNG":
+				ParsedCommand = Commands.CHNG;
+				break;
+
+			case "HELP":
+				ParsedCommand = Commands.HELP;
+				break;
+
+			case "MOVE":
+				ParsedCommand = Commands.MOVE;
+				break;
+
+			case "ATTK":
+				ParsedCommand = Commands.ATTK;
+				break;
+
+			case "SCAN":
+				ParsedCommand = Commands.SCAN;
+				break;
+
+			case "EXIT":
+				ParsedCommand = Commands.EXIT;
+				break;
+
+			case "PAUS":
+				ParsedCommand = Commands.PAUS;
+				break;
+
+			default:
+				ParsedCommand = 0;
+				return false;
 		}
-		catch (Exception)
-		{
-			return default;
-		}
+
+		return true;
 	}
+}
+
+public enum Commands
+{
+	POSN = 1,
+	CHNG = 2,
+	HELP = 3,
+
+	MOVE = 4,
+	ATTK = 5,
+	SCAN = 6,
+	INST = 7,
+
+	EXIT = 8,
+	PAUS = 9
 }
 
