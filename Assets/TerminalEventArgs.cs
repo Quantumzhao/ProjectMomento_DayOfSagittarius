@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+///		Don't use this. 
+/// </summary>
 class TerminalEventArgs
 {
 	public TerminalEventArgs(string[] commands)
@@ -61,18 +64,4 @@ class TerminalEventArgs
 	}
 }
 
-public enum Commands
-{
-	POSN = 1,
-	CHNG = 2,
-	HELP = 3,
-
-	MOVE = 4,
-	ATTK = 5,
-	SCAN = 6,
-	INST = 7,
-
-	EXIT = 8,
-	PAUS = 9
-}
 

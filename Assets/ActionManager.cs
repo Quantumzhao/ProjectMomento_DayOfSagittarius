@@ -56,92 +56,91 @@ public class ActionManager : MonoBehaviour {
 
 public static class Command
 {
-	private delegate void changeHandler
-		(object original, object data, manipulationHandler manipulation);
-	private static changeHandler changeDelegate;
-
-	private delegate void manipulationHandler(GameObject gameObject, object data);
-
-	public static void ExecuteCommand(string command)
+	public static void ExecuteCommand(string message)
 	{
-		Queue<string> commandList = new Queue<string>(command.Split(' '));
+		Queue<string> commandList = new Queue<string>(message.Split(' '));
 
-		switch (commandList.Dequeue())
+		switch ((Commands)Enum.Parse(typeof(Commands), commandList.Dequeue().ToUpper()))
 		{
-			case "CHNG":
+			case Commands.CHNG:
 				change(commandList);
 				break;
 
+			case Commands.HELP:
+				break;
+
 			default:
+				break;
+		}
+
+		Console.WriteLine(message);
+		Console.Input.Clear();
+	}
+
+	private static void change(Queue<string> commandList)
+	{
+		switch ((Commands)Enum.Parse(typeof(Commands), commandList.Dequeue().ToUpper()))
+		{
+			case Commands.POSN:
+				changePosition(commandList);
+				break;
+
+			case Commands.ROTN:
+				changeRotation(commandList);
 				break;
 		}
 	}
 
 	private static void changePosition(Queue<string> commandList)
 	{
+		GameObject gameObject = GameObject.Find(commandList.Dequeue());
 
+		Vector3 position = new Vector3
+			(
+				float.Parse(commandList.Dequeue()),
+				float.Parse(commandList.Dequeue()),
+				0
+			);
+
+		gameObject.transform.position = position;
 	}
 
-	private static void help(string param = "")
+	private static void changeRotation(Queue<string> commandList)
 	{
+		GameObject gameObject = GameObject.Find(commandList.Dequeue());
 
-	}
+		Vector3 rotation = new Vector3
+			(	0,
+				0,
+				float.Parse(commandList.Dequeue())
+			);
 
-	private static void change(Queue<string> commandList)
-	{
-		switch (commandList.Dequeue())
-		{
-			case "POSN":
-				position(commandList, out GameObject gameObject, out Vector2 coord);
-				changeDelegate += 
-				(
-					object gameObject_Param, 
-					object coord_Param, 
-					manipulationHandler manipulation
-				) => 
-				{
-					manipulation((GameObject)gameObject_Param, coord_Param);
-				};
-				changeDelegate
-				(
-					gameObject,
-					coord,
-					new manipulationHandler
-					(
-						(GameObject gameObject_Param, object coord_Param) =>
-						{
-							gameObject_Param.transform.position = (Vector3)coord_Param;
-						}
-					)
-				);
-				break;
-
-			default:
-				break;
-		}
-	}
-
-	private static void position(Queue<string> commandList, out GameObject gameObject, out Vector2 coord)
-	{
-		/*changeHandler<Vector2> changeDelegate;
-		manipulationHandler<Vector2> manipulationDelegate =
-			(GameObject gameObject, Vector2 newPosition) =>
-			{
-				gameObject.transform.position = newPosition;
-			};
-
-		Vector2 position = new Vector2
-		(
-			float.Parse(commandList.Dequeue()),
-			float.Parse(commandList.Dequeue())
-		);*/
-
-		gameObject = GameObject.Find(commandList.Dequeue());
-
-		coord = new Vector2
-		(
-			float.Parse(commandList.Dequeue()),
-			float.Parse(commandList.Dequeue())
-		);
+		gameObject.transform.eulerAngles = rotation;
 	}
 }
+
+public enum Commands
+{
+	#region Game controlling commands
+		EXIT,   // Exit
+		PAUS,   // Pause
+	#endregion
+
+	#region Instance methods of gameObjects
+		MOVE,   // Move
+		CHNG,   // Change
+		ATTK,   // Attack
+		SCAN,   // Scan
+	#endregion
+
+	#region Instance properties of gameObjects
+		POSN,   // Position
+		ROTN,   // Rotation
+	#endregion
+
+	#region Static commands
+		HELP,   // Help
+		NEW,    // Instantiate
+	#endregion
+}
+

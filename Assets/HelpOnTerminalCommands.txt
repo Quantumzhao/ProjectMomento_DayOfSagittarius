@@ -1,0 +1,5 @@
+﻿HELP: HELP <Commands> @Show available commands for the built-in terminal
+CHNG: CHNG <POSN|ROTN> @Change the properties of a specified gameObject
+POSN: CHNG POSN <Name> <arg1> <arg2> @Change position of a specified gameObject
+ROTN: CHNG ROTN <Name> <arg1> @Change rotation of a specified gameObject
+NEW: NEW <Name> @Instantiate a new gameObject

@@ -11,8 +11,11 @@ namespace Unit
 
 		private float angularAcceleration = 30;
 
-		public Vector3 targetRotation;
-		public bool isRotate;
+		public Vector3 TargetRotation;
+		public bool IsRotating;
+
+		public float targetVelocity;
+		public bool isAccelerating;
 
 		private Rigidbody2D rb2D;
 
@@ -22,23 +25,24 @@ namespace Unit
 
 			rb2D = gameObject.GetComponent<Rigidbody2D>();
 
-			isRotate = false;
+			IsRotating = false;
+			isAccelerating = false;
 		}
 
 		public void FixedUpdate()
 		{
-			if (isRotate)
+			if (IsRotating)
 			{
 				float currentAngle = transform.eulerAngles.z;
 				currentAngle = currentAngle > 180 ? currentAngle - 360 : currentAngle;
 
-				if (Mathf.Abs(currentAngle - targetRotation.z) > 1)
+				if (Mathf.Abs(currentAngle - TargetRotation.z) > 1)
 				{
 					changeRotation();
 				}
 				else
 				{
-					isRotate = false;
+					IsRotating = false;
 
 					rb2D.angularVelocity = 0;
 				}
@@ -91,7 +95,7 @@ namespace Unit
 			float currentAngle = transform.eulerAngles.z;
 			currentAngle = currentAngle > 180 ? currentAngle - 360 : currentAngle;
 
-			float diffInAngle = targetRotation.z - currentAngle;
+			float diffInAngle = TargetRotation.z - currentAngle;
 
 			if (diffInAngle > 180)
 			{

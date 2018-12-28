@@ -29,16 +29,27 @@ public class RotationHelper : MonoBehaviour
 		faintColor.a = 0.5f;
 	}
 
+	private bool cursorChanged = false;
 	public void OnDrag(BaseEventData eventData)
 	{
 		PointerEventData data = (PointerEventData)eventData;
 
-		RectTransformUtility.ScreenPointToWorldPointInRectangle(
-			(RectTransform)popMenuCanvas.transform,
-			data.position,
-			ResourceManager.Camera.GetComponent<Camera>(),
-			out Vector3 localPoint
-		);
+		if (data.button != PointerEventData.InputButton.Left)
+		{
+			return;
+		}
+
+		// Make sure resource loading is called only once
+		if (!cursorChanged)
+		{
+			Cursor.SetCursor(
+				Resources.Load<Texture2D>("Rotate"),
+				new Vector2(0, 0), 
+				CursorMode.ForceSoftware
+			);
+
+			cursorChanged = true;
+		}
 
 		Vector3 rotation = new Vector3(0, 0, data.delta.x);
 
@@ -60,17 +71,28 @@ public class RotationHelper : MonoBehaviour
 		{
 			faintColor.a = 1;
 
-			behavior.isRotate = true;
+			behavior.IsRotating = true;
 
-			behavior.targetRotation = totalRotation + gameObject.transform.parent.rotation.eulerAngles;
+			behavior.TargetRotation = totalRotation + gameObject.transform.parent.rotation.eulerAngles;
 
-			if (Mathf.Abs(behavior.targetRotation.z) > 360)
+			if (Mathf.Abs(behavior.TargetRotation.z) > 360)
 			{
-				behavior.targetRotation.z %= 360f;
+				behavior.TargetRotation.z %= 360f;
 			}
 		}
 
 		unitSpriteRenderer.color = faintColor;
+
+		if (cursorChanged)
+		{
+			Cursor.SetCursor(
+				Resources.Load<Texture2D>("Normal"),
+				new Vector2(0f, 0f),
+				CursorMode.ForceSoftware
+			);
+
+			cursorChanged = false;
+		}
 
 		gameObject.SetActive(false);
 	}

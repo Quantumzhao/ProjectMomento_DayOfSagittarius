@@ -28,6 +28,12 @@ public class ResourceManager : MonoBehaviour
 	private void initConsole()
 	{
 		Console.TerminalOutput = GameObject.Find("Output").GetComponent<Text>();
+		Console.InputField = GameObject.Find("Terminal")
+							.transform
+							.GetChild(2)
+							.GetChild(1)
+							.gameObject
+							.GetComponent<Text>();
 	}
 
 	private void initUnitHighlight()
@@ -59,10 +65,19 @@ public class ResourceManager : MonoBehaviour
 public class Console
 {
 	public static Text TerminalOutput;
+	public static Text InputField;
 
 	public static void WriteLine(string message)
 	{
 		TerminalOutput.text += ("\n" + DateTime.Now.ToLongTimeString() + "\t" + message);
+	}
+
+	public static class Input
+	{
+		public static void Clear()
+		{
+			InputField.text = "";
+		}
 	}
 }
 

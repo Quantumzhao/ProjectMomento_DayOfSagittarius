@@ -79,12 +79,14 @@
     <Compile Include="Assets\Components\UI\Window\Scripts\DragHelper.cs" />
     <Compile Include="Assets\Components\UI\Window\Title Bar\Close Button\Invokation.cs" />
     <Compile Include="Assets\Components\Units\Flagship.cs" />
+    <Compile Include="Assets\Components\Units\Primitive Unit\AccelerationHelper.cs" />
     <Compile Include="Assets\Components\Units\Primitive Unit\Behavior.cs" />
     <Compile Include="Assets\Components\Units\Primitive Unit\RotationHelper.cs" />
     <Compile Include="Assets\Components\Units\Primitive Unit\Values.cs" />
     <Compile Include="Assets\ResourceManager.cs" />
     <Compile Include="Assets\SVGImage\SVGImage.cs" />
     <Compile Include="Assets\TerminalEventArgs.cs" />
+    <None Include="Assets\HelpOnTerminalCommands.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/yisha/OneDrive/Documents/Project Momento/Day of Sagittarius/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
