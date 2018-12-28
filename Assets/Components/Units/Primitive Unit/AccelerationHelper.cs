@@ -43,7 +43,7 @@ public class AccelerationHelper : MonoBehaviour
 		if (!cursorChanged)
 		{
 			Cursor.SetCursor(
-				Resources.Load<Texture2D>("Rotate"),
+				Resources.Load<Texture2D>("Accelerate"),
 				new Vector2(0, 0),
 				CursorMode.ForceSoftware
 			);
@@ -52,6 +52,14 @@ public class AccelerationHelper : MonoBehaviour
 		}
 
 		totalVelocity += data.delta.x;
+
+		unitSpriteRenderer.color = faintColor;
+
+		if (!gameObject.activeSelf)
+		{
+			gameObject.SetActive(true);
+		}
+
 	}
 
 	public void OnPointerUp(BaseEventData eventData)
