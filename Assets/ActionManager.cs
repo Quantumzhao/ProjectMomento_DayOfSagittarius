@@ -69,6 +69,10 @@ public static class Command
 			case Commands.HELP:
 				break;
 
+			case Commands.NEW:
+				instantiate();
+				break;
+
 			default:
 				break;
 		}
@@ -116,6 +120,11 @@ public static class Command
 			);
 
 		gameObject.transform.eulerAngles = rotation;
+	}
+
+	private static void instantiate()
+	{
+
 	}
 }
 

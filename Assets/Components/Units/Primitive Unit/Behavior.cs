@@ -8,8 +8,11 @@ namespace Unit
 	public class Behavior : MonoBehaviour
 	{
 		private GameObject popMenuCanvas;
+		private RotationHelper rotationHelper;
+		private VelocityHelper accelerationHelper;
 
 		private float angularAcceleration = 30;
+		private float accelerarion = 30;
 
 		public Vector3 TargetRotation;
 		public bool IsRotating;
@@ -49,6 +52,26 @@ namespace Unit
 			}
 		}
 
+		public void OnPointerEnter(BaseEventData eventData)
+		{
+
+		}
+
+		public void OnPointerLeave(BaseEventData eventData)
+		{
+
+		}
+
+		public void OnPointerDown(BaseEventData eventData)
+		{
+
+		}
+
+		public void OnPointerUp(BaseEventData eventData)
+		{
+
+		}
+
 		public void OnPointerClick(BaseEventData eventData)
 		{
 			PointerEventData data = (PointerEventData)eventData;
@@ -70,6 +93,25 @@ namespace Unit
 				case PointerEventData.InputButton.Middle:
 					break;
 
+				default:
+					break;
+			}
+		}
+
+		public void OnPointerDrag(BaseEventData eventData)
+		{
+			PointerEventData data = (PointerEventData)eventData;
+
+			switch (data.button)
+			{
+				case PointerEventData.InputButton.Left:
+					break;
+
+				case PointerEventData.InputButton.Right:
+					break;
+
+				case PointerEventData.InputButton.Middle:
+					break;
 				default:
 					break;
 			}
@@ -110,6 +152,11 @@ namespace Unit
 			{
 				rb2D.angularVelocity -= Mathf.Sign(diffInAngle) * angularAcceleration * Time.deltaTime;
 			}
+		}
+
+		private void changeAcceleration()
+		{
+
 		}
 	}
 }
