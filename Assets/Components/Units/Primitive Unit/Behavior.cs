@@ -22,11 +22,17 @@ namespace Unit
 
 		private Rigidbody2D rb2D;
 
+		private Color transparentColor;
+		private SpriteRenderer spriteRenderer;		// The spriteRenderer of the unit
+
+		private CursorStatus cursorStatus = CursorStatus.Normal;
+
 		public void Start()
 		{
 			popMenuCanvas = GameObject.Find("PopMenuCanvas");
 
 			rb2D = gameObject.GetComponent<Rigidbody2D>();
+			spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
 			IsRotating = false;
 			isAccelerating = false;
@@ -54,22 +60,60 @@ namespace Unit
 
 		public void OnPointerEnter(BaseEventData eventData)
 		{
+			#region Set cursor appearance to undetermined
+			if (gameObject == ResourceManager.SelectedGameObject)
+			{
+				Cursor.SetCursor(
+					Resources.Load<Texture2D>("Change"),
+					new Vector2(0, 0),
+					CursorMode.ForceSoftware
+				);
 
+				cursorStatus = CursorStatus.Undetermined;
+			}
+			#endregion
 		}
 
 		public void OnPointerLeave(BaseEventData eventData)
 		{
+			#region Set cursor appearance to normal
+			if (gameObject == ResourceManager.SelectedGameObject)
+			{
+				Cursor.SetCursor(
+					Resources.Load<Texture2D>("Normal"),
+					new Vector2(0, 0),
+					CursorMode.ForceSoftware
+				);
 
+				cursorStatus = CursorStatus.Normal;
+			}
+			#endregion
 		}
 
 		public void OnPointerDown(BaseEventData eventData)
 		{
+			#region Prepare for dragging the unit
+			PointerEventData data = (PointerEventData)eventData;
 
+			transparentColor = spriteRenderer.color;
+			transparentColor.a = 0.5f;
+			#endregion
 		}
 
 		public void OnPointerUp(BaseEventData eventData)
 		{
+			#region Revert all the changes
+			if (cursorStatus != CursorStatus.Normal)
+			{
+				Cursor.SetCursor(
+					Resources.Load<Texture2D>("Normal"),
+					new Vector2(0, 0),
+					CursorMode.ForceSoftware
+				);
 
+				cursorStatus = CursorStatus.Normal;
+			}
+			#endregion
 		}
 
 		public void OnPointerClick(BaseEventData eventData)
@@ -157,6 +201,14 @@ namespace Unit
 		private void changeAcceleration()
 		{
 
+		}
+
+		private enum CursorStatus
+		{
+			Rotate,
+			ChangeVelocity,
+			Undetermined,
+			Normal
 		}
 	}
 }
