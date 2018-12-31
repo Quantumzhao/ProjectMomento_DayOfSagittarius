@@ -58,6 +58,7 @@ namespace Unit
 			}
 		}
 
+		[System.Obsolete("Use OnMouseOver")]
 		public void OnPointerEnter(BaseEventData eventData)
 		{
 			#region Set cursor appearance to undetermined
@@ -74,6 +75,7 @@ namespace Unit
 			#endregion
 		}
 
+		[System.Obsolete("Use OnMouseOver")]
 		public void OnPointerLeave(BaseEventData eventData)
 		{
 			#region Set cursor appearance to normal

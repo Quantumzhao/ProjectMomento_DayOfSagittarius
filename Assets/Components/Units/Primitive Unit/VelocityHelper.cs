@@ -21,6 +21,7 @@ public class VelocityHelper : MonoBehaviour
 		behavior = gameObject.transform.parent.gameObject.GetComponent<Unit.Behavior>();
 	}
 
+	[System.Obsolete("Use Behavior.OnPointerDown()")]
 	public void OnPointerDown(BaseEventData eventData)
 	{
 		PointerEventData data = (PointerEventData)eventData;
@@ -62,6 +63,7 @@ public class VelocityHelper : MonoBehaviour
 
 	}
 
+	[System.Obsolete("Use Behavior.OnPointerUp()")]
 	public void OnPointerUp(BaseEventData eventData)
 	{
 		if (faintColor.a != 1)
