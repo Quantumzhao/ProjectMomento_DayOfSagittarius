@@ -7,10 +7,54 @@ namespace UI.PopMenuCanvas
 {
 	public class Behavior : MonoBehaviour
 	{
+		private delegate void dragHandler(PointerEventData data);
+		private dragHandler dragDelegate;
+
 		public void OnDrag(BaseEventData rawData)
 		{
 			PointerEventData data = (PointerEventData)rawData;
 
+			switch (data.button)
+			{
+				case PointerEventData.InputButton.Left:
+					break;
+
+				case PointerEventData.InputButton.Right:
+					moveCamera(data);
+					break;
+
+				case PointerEventData.InputButton.Middle:
+					break;
+				default:
+					break;
+			}
+
+		}
+
+		public void OnPointerDown(BaseEventData rawData)
+		{
+			PointerEventData data = (PointerEventData)rawData;
+
+			switch (data.button)
+			{
+				case PointerEventData.InputButton.Left:
+					cancelSelection(data);
+					break;
+
+				case PointerEventData.InputButton.Right:
+
+					break;
+
+				case PointerEventData.InputButton.Middle:
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		private void moveCamera(PointerEventData data)
+		{
 			if (data.button != PointerEventData.InputButton.Right)
 			{
 				return;
@@ -19,15 +63,18 @@ namespace UI.PopMenuCanvas
 			ResourceManager.Camera.transform.position -= (Vector3)data.delta / 100;
 		}
 
-		public void OnPointerDown(BaseEventData rawData)
+		private void cancelSelection(PointerEventData data)
 		{
-			PointerEventData data = (PointerEventData)rawData;
-
 			ResourceManager.PopMenu.GetComponent<PopMenu.Behavior>().Close();
 
 			ResourceManager.SelectedGameObject?.GetComponent<Unit.Behavior>().LostHighlight();
 
 			ResourceManager.SelectedGameObject = null;
+		}
+
+		private void PlanningRoute()
+		{
+
 		}
 	}
 }

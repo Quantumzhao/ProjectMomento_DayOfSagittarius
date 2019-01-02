@@ -31,7 +31,7 @@ public class VelocityHelper : MonoBehaviour
 	}
 
 	private bool cursorChanged = false;
-	public void OnDrag(BaseEventData eventData)
+	public void ChangeVelocity(BaseEventData eventData)
 	{
 		PointerEventData data = (PointerEventData)eventData;
 
@@ -89,5 +89,10 @@ public class VelocityHelper : MonoBehaviour
 		}
 
 		gameObject.SetActive(false);
+	}
+
+	public void OnDrag(BaseEventData eventData)
+	{
+		
 	}
 }

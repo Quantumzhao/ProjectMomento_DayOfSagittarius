@@ -9,7 +9,7 @@ namespace Unit
 	{
 		private GameObject popMenuCanvas;
 		private RotationHelper rotationHelper;
-		private VelocityHelper accelerationHelper;
+		private VelocityHelper velocityHelper;
 
 		private float angularAcceleration = 30;
 		private float accelerarion = 30;
@@ -33,6 +33,9 @@ namespace Unit
 
 			rb2D = gameObject.GetComponent<Rigidbody2D>();
 			spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+			rotationHelper = gameObject.transform.GetChild(0).gameObject.GetComponent<RotationHelper>();
+			velocityHelper = gameObject.transform.GetChild(1).gameObject.GetComponent<VelocityHelper>();
 
 			IsRotating = false;
 			isAccelerating = false;
@@ -58,7 +61,6 @@ namespace Unit
 			}
 		}
 
-		[System.Obsolete("Use OnMouseOver")]
 		public void OnPointerEnter(BaseEventData eventData)
 		{
 			#region Set cursor appearance to undetermined
@@ -75,7 +77,6 @@ namespace Unit
 			#endregion
 		}
 
-		[System.Obsolete("Use OnMouseOver")]
 		public void OnPointerLeave(BaseEventData eventData)
 		{
 			#region Set cursor appearance to normal
@@ -146,14 +147,16 @@ namespace Unit
 
 		public void OnPointerDrag(BaseEventData eventData)
 		{
-			PointerEventData data = (PointerEventData)eventData;
+			//PointerEventData data = (PointerEventData)eventData;
 
-			switch (data.button)
+			switch (((PointerEventData)eventData).button)
 			{
 				case PointerEventData.InputButton.Left:
+					rotationHelper.OnDrag(eventData);
 					break;
 
 				case PointerEventData.InputButton.Right:
+					velocityHelper.OnDrag(eventData);
 					break;
 
 				case PointerEventData.InputButton.Middle:
