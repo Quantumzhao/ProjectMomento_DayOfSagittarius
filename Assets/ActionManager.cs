@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Reflection;
 
 public class ActionManager : MonoBehaviour {
 
@@ -70,7 +71,11 @@ public static class Command
 				break;
 
 			case Commands.NEW:
-				instantiate();
+				instantiate(commandList);
+				break;
+
+			case Commands.RFLC:
+				Reflection(commandList);
 				break;
 
 			default:
@@ -122,9 +127,20 @@ public static class Command
 		gameObject.transform.eulerAngles = rotation;
 	}
 
-	private static void instantiate()
+	private static void instantiate(Queue<string> commandList)
 	{
+		new GameObject(commandList.Dequeue());
+	}
 
+	private static void Reflection(Queue<string> commandList)
+	{
+		Type inputType = Type.GetType(commandList.Dequeue());
+		ConstructorInfo typeConstructor = inputType.GetConstructor(Type.EmptyTypes);
+		object magicClassObject = typeConstructor.Invoke(new object[] { });
+
+		MethodInfo inputMethod = inputType.GetMethod(commandList.Dequeue());
+
+		inputMethod.Invoke(magicClassObject, new object[] { });
 	}
 }
 
@@ -150,6 +166,7 @@ public enum Commands
 	#region Static commands
 		HELP,   // Help
 		NEW,    // Instantiate
+		RFLC,	// Reflection
 	#endregion
 }
 
