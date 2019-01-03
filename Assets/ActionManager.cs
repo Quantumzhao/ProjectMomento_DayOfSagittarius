@@ -136,11 +136,11 @@ public static class Command
 	{
 		Type inputType = Type.GetType(commandList.Dequeue());
 		ConstructorInfo typeConstructor = inputType.GetConstructor(Type.EmptyTypes);
-		object magicClassObject = typeConstructor.Invoke(new object[] { });
+		object inputClassObject = typeConstructor.Invoke(new object[] { });
 
 		MethodInfo inputMethod = inputType.GetMethod(commandList.Dequeue());
 
-		inputMethod.Invoke(magicClassObject, new object[] { });
+		inputMethod.Invoke(inputClassObject, new object[] { });
 	}
 }
 
