@@ -17,6 +17,7 @@ namespace UI.PopMenuCanvas
 			switch (data.button)
 			{
 				case PointerEventData.InputButton.Left:
+
 					break;
 
 				case PointerEventData.InputButton.Right:

@@ -12,6 +12,8 @@ public class ResourceManager : MonoBehaviour
 	public static GameObject PopMenu;
 	public static GameObject Camera;
 
+	public static GameCursor Cursor = new GameCursor();
+
 	private void Awake()
 	{
 		initConsole();
@@ -90,4 +92,76 @@ public struct Velocity
 {
 	public float Argument;
 	public float Modulus;
+}
+
+/// <summary>
+///		The encapsuled Cursor behavior controller
+/// </summary>
+public class GameCursor
+{
+	/// <summary>
+	///		Status of the cursor. 
+	///		Also changes the sprite of the cursor. 
+	/// </summary>
+	private CursorStatus status = CursorStatus.Normal;
+	public CursorStatus Mode
+	{
+		get
+		{
+			return status;
+		}
+
+		set
+		{
+			if (value == status)
+			{
+				return;
+			}
+			else
+			{
+				switch (value)
+				{
+					case CursorStatus.Rotate:
+						Cursor.SetCursor(
+							Resources.Load<Texture2D>("Rotate"),
+							new Vector2(0, 0),
+							CursorMode.ForceSoftware
+						);
+						break;
+
+					case CursorStatus.ChangeVelocity:
+						Cursor.SetCursor(
+							Resources.Load<Texture2D>("Rotate"),
+							new Vector2(0, 0),
+							CursorMode.ForceSoftware
+						);
+						break;
+
+					case CursorStatus.Undetermined:
+						Cursor.SetCursor(
+							Resources.Load<Texture2D>("Rotate"),
+							new Vector2(0, 0),
+							CursorMode.ForceSoftware
+						);
+						break;
+
+					case CursorStatus.Normal:
+						Cursor.SetCursor(null, new Vector2(), CursorMode.ForceSoftware);
+						break;
+
+					default:
+						break;
+				}
+			}
+
+		}
+	}
+
+	public enum CursorStatus
+	{
+		Rotate,
+		ChangeVelocity,
+		Undetermined,
+		Normal
+	}
 }

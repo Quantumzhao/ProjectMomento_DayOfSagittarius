@@ -7,6 +7,7 @@ TagManager:
   - Cursor_Normal
   - Unit
   - UnitHighlight
+  - Shell
   layers:
   - Default
   - TransparentFX

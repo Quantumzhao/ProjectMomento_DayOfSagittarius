@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static GameCursor;
 
 namespace Unit
 {
 	public class Behavior : MonoBehaviour
 	{
 		private GameObject popMenuCanvas;
-		private RotationHelper rotationHelper;
-		private VelocityHelper velocityHelper;
+		private SpriteRenderer spriteWhenDragging;
 
 		private float angularAcceleration = 30;
 		private float accelerarion = 30;
@@ -30,12 +30,14 @@ namespace Unit
 		public void Start()
 		{
 			popMenuCanvas = GameObject.Find("PopMenuCanvas");
+			spriteWhenDragging = gameObject
+								.transform
+								.GetChild(0)
+								.gameObject
+								.GetComponent<SpriteRenderer>();
 
 			rb2D = gameObject.GetComponent<Rigidbody2D>();
 			spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
-			rotationHelper = gameObject.transform.GetChild(0).gameObject.GetComponent<RotationHelper>();
-			velocityHelper = gameObject.transform.GetChild(1).gameObject.GetComponent<VelocityHelper>();
 
 			IsRotating = false;
 			isAccelerating = false;
@@ -105,17 +107,8 @@ namespace Unit
 
 		public void OnPointerUp(BaseEventData eventData)
 		{
-			#region Revert all the changes
-			if (cursorStatus != CursorStatus.Normal)
-			{
-				Cursor.SetCursor(
-					Resources.Load<Texture2D>("Normal"),
-					new Vector2(0, 0),
-					CursorMode.ForceSoftware
-				);
-
-				cursorStatus = CursorStatus.Normal;
-			}
+			#region Revert all changes
+			ResourceManager.Cursor.Mode = CursorStatus.Normal;
 			#endregion
 		}
 
@@ -147,7 +140,7 @@ namespace Unit
 
 		public void OnPointerDrag(BaseEventData eventData)
 		{
-			//PointerEventData data = (PointerEventData)eventData;
+			PointerEventData data = (PointerEventData)eventData;
 
 			switch (((PointerEventData)eventData).button)
 			{
@@ -178,6 +171,21 @@ namespace Unit
 			GetComponents<CircleCollider2D>()[1].enabled = value;
 		}
 
+		public void DestroySelf()
+		{
+			Destroy(gameObject);
+		}
+
+		public void OnTriggerEnter(Collider other)
+		{
+			if (other.CompareTag("Shell"))
+			{
+				Destroy(other.gameObject);
+
+				DestroySelf();
+			}
+		}
+
 		private void changeRotation()
 		{
 			float minAngle = angularAcceleration * 
@@ -206,14 +214,6 @@ namespace Unit
 		private void changeAcceleration()
 		{
 
-		}
-
-		private enum CursorStatus
-		{
-			Rotate,
-			ChangeVelocity,
-			Undetermined,
-			Normal
 		}
 	}
 }

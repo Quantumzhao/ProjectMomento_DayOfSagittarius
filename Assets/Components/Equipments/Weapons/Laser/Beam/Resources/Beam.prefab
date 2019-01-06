@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1891906662174041233}
   m_Layer: 0
   m_Name: Beam
-  m_TagString: Untagged
+  m_TagString: Shell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81455e0d5f0c82246a75789fd23dff8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Length: 0
   AnchorPoint: {x: 0, y: 0}
   RectCoordVelocity: {x: 0, y: 0}
   Invoker: {fileID: 0}
