@@ -7,8 +7,8 @@ namespace UI.PopMenuCanvas
 {
 	public class Behavior : MonoBehaviour
 	{
-		private delegate void dragHandler(PointerEventData data);
-		private dragHandler dragDelegate;
+		//private delegate void dragHandler(PointerEventData data);
+		//private dragHandler dragDelegate;
 
 		public void OnDrag(BaseEventData rawData)
 		{
@@ -25,6 +25,7 @@ namespace UI.PopMenuCanvas
 
 				case PointerEventData.InputButton.Middle:
 					break;
+
 				default:
 					break;
 			}
@@ -55,11 +56,6 @@ namespace UI.PopMenuCanvas
 
 		private void moveCamera(PointerEventData data)
 		{
-			if (data.button != PointerEventData.InputButton.Right)
-			{
-				return;
-			}
-
 			ResourceManager.Camera.transform.position -= (Vector3)data.delta / 100;
 		}
 
