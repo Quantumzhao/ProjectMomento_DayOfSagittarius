@@ -14,10 +14,40 @@ namespace Unit
 		private float angularAcceleration = 30;
 		private float accelerarion = 30;
 
-		public Vector3 TargetRotation;
-		public bool IsRotating;
+		private float targetRotation;
+		public float TargetRotation
+		{
+			get
+			{
+				return targetRotation;
+			}
 
-		public float targetVelocity;
+			set
+			{
+				if (Mathf.Abs(value) >= 360f)
+				{
+					value -= 360f;
+				}
+
+				targetRotation = value;
+			}
+		}
+
+		private float targetVelocity;
+		public float TargetVelocity
+		{
+			get
+			{
+				return targetVelocity;
+			}
+
+			set
+			{
+				targetVelocity = value;
+			}
+		}
+
+		public bool IsRotating;
 		public bool isAccelerating;
 
 		private Rigidbody2D rb2D;
@@ -50,7 +80,7 @@ namespace Unit
 				float currentAngle = transform.eulerAngles.z;
 				currentAngle = currentAngle > 180 ? currentAngle - 360 : currentAngle;
 
-				if (Mathf.Abs(currentAngle - TargetRotation.z) > 1)
+				if (Mathf.Abs(currentAngle - TargetRotation) > 1)
 				{
 					changeRotation();
 				}
@@ -66,32 +96,14 @@ namespace Unit
 		public void OnPointerEnter(BaseEventData eventData)
 		{
 			#region Set cursor appearance to undetermined
-			if (gameObject == ResourceManager.SelectedGameObject)
-			{
-				Cursor.SetCursor(
-					Resources.Load<Texture2D>("Change"),
-					new Vector2(0, 0),
-					CursorMode.ForceSoftware
-				);
-
-				cursorStatus = CursorStatus.Undetermined;
-			}
+			ResourceManager.Cursor.Mode = CursorStatus.Undetermined;
 			#endregion
 		}
 
 		public void OnPointerLeave(BaseEventData eventData)
 		{
 			#region Set cursor appearance to normal
-			if (gameObject == ResourceManager.SelectedGameObject)
-			{
-				Cursor.SetCursor(
-					Resources.Load<Texture2D>("Normal"),
-					new Vector2(0, 0),
-					CursorMode.ForceSoftware
-				);
-
-				cursorStatus = CursorStatus.Normal;
-			}
+			ResourceManager.Cursor.Mode = CursorStatus.Normal;
 			#endregion
 		}
 
@@ -107,7 +119,16 @@ namespace Unit
 
 		public void OnPointerUp(BaseEventData eventData)
 		{
-			#region Revert all changes
+			#region Submit all changes
+			var r = transform.eulerAngles.z * Mathf.Deg2Rad;
+			rb2D.velocity = new Vector2
+				(
+					targetVelocity * Mathf.Cos(r),
+					targetVelocity * Mathf.Sin(r)
+				);
+			#endregion
+
+			#region Revert the environment
 			ResourceManager.Cursor.Mode = CursorStatus.Normal;
 			#endregion
 		}
@@ -145,11 +166,11 @@ namespace Unit
 			switch (((PointerEventData)eventData).button)
 			{
 				case PointerEventData.InputButton.Left:
-					rotationHelper.OnDrag(eventData);
+					setTargetRotation();
 					break;
 
 				case PointerEventData.InputButton.Right:
-					velocityHelper.OnDrag(eventData);
+					setTargetVelocity();
 					break;
 
 				case PointerEventData.InputButton.Middle:
@@ -186,6 +207,16 @@ namespace Unit
 			}
 		}
 
+		private void setTargetRotation()
+		{
+
+		}
+
+		private void setTargetVelocity()
+		{
+
+		}
+
 		private void changeRotation()
 		{
 			float minAngle = angularAcceleration * 
@@ -194,7 +225,7 @@ namespace Unit
 			float currentAngle = transform.eulerAngles.z;
 			currentAngle = currentAngle > 180 ? currentAngle - 360 : currentAngle;
 
-			float diffInAngle = TargetRotation.z - currentAngle;
+			float diffInAngle = TargetRotation - currentAngle;
 
 			if (diffInAngle > 180)
 			{

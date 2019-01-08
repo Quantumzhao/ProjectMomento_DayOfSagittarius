@@ -75,11 +75,11 @@ public class RotationHelper : MonoBehaviour
 
 			behavior.IsRotating = true;
 
-			behavior.TargetRotation = totalRotation + gameObject.transform.parent.rotation.eulerAngles;
+			behavior.TargetRotation = (totalRotation + gameObject.transform.parent.rotation.eulerAngles).z;
 
-			if (Mathf.Abs(behavior.TargetRotation.z) > 360)
+			if (Mathf.Abs(behavior.TargetRotation) > 360)
 			{
-				behavior.TargetRotation.z %= 360f;
+				behavior.TargetRotation %= 360f;
 			}
 		}
 

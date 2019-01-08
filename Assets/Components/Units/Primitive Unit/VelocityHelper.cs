@@ -72,7 +72,7 @@ public class VelocityHelper : MonoBehaviour
 
 			behavior.isAccelerating = true;
 
-			behavior.targetVelocity = totalVelocity + gameObject.transform.parent.GetComponent<Rigidbody2D>().velocity.magnitude;
+			behavior.TargetVelocity = totalVelocity + gameObject.transform.parent.GetComponent<Rigidbody2D>().velocity.magnitude;
 		}
 
 		unitSpriteRenderer.color = faintColor;
