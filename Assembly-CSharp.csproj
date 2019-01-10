@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{DDCE2F57-5168-18B0-6292-100E4448BBC0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -86,6 +87,7 @@
     <Compile Include="Assets\ResourceManager.cs" />
     <Compile Include="Assets\SVGImage\SVGImage.cs" />
     <Compile Include="Assets\TerminalEventArgs.cs" />
+    <Compile Include="Assets\Program.cs" />
     <None Include="Assets\HelpOnTerminalCommands.txt" />
     <None Include="Assets\Prototype-Mindmaps\NavigationAlgorithm\Momento-NavigationAlgorithm.xml" />
     <None Include="Assets\Prototype-Mindmaps\MultiplayerArchitecture\Momento-MultiplayerArchitecture.xml" />

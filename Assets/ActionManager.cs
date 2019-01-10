@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Reflection;
+using TestCustomizedFunction;
 
 public class ActionManager : MonoBehaviour {
 
@@ -146,7 +147,7 @@ public static class Command
 
 public class TestClass
 {
-	private static Dictionary<string, object> DelegateList = new Dictionary<string, object>();
+	private static CustomizedFunctionWrapper instructions = new CustomizedFunctionWrapper();
 
 	public static void ExecuteCommand(string command)
 	{
@@ -161,16 +162,29 @@ public class TestClass
 			default:
 				break;
 		}
+
+		instructions.Invoke();
 	}
 
 	private static void change(Queue<string> commandList)
 	{
-		DelegateList.Add("Change", null);
+		instructions.AddVariable("newProperty", null);
+		instructions.AddVariable("GameObject", null);
 
 		switch ((Commands)Enum.Parse(typeof(Commands), commandList.Dequeue()))
 		{
 			case Commands.POSN:
 				position(commandList);
+				instructions.AddFunction
+				(
+					"Change",
+					(Dictionary<string, object> p) =>
+					{
+						((GameObject)instructions["GameObject"]).transform.position
+						= (Vector3)instructions["newProperty"];
+						return null;
+					}
+				);
 				break;
 
 			case Commands.ROTN:
@@ -183,7 +197,18 @@ public class TestClass
 
 	private static void position(Queue<string> commandList)
 	{
+		instructions["GameObject"] = GameObject.Find(commandList.Dequeue());
+		instructions["newProperty"] = new Vector3
+			(
+				float.Parse(commandList.Dequeue()),
+				float.Parse(commandList.Dequeue()),
+				0
+			);
 
+		if (float.TryParse(commandList.Dequeue(), out float result))
+		{
+			commandList.Dequeue();
+		}
 	}
 }
 
