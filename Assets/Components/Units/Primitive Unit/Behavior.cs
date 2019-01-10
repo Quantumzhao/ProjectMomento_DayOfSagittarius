@@ -9,7 +9,7 @@ namespace Unit
 	public class Behavior : MonoBehaviour
 	{
 		private GameObject popMenuCanvas;
-		private SpriteRenderer spriteWhenDragging;
+		private GameObject spriteWhenDragging;
 
 		private float angularAcceleration = 30;
 		private float accelerarion = 30;
@@ -63,8 +63,7 @@ namespace Unit
 			spriteWhenDragging = gameObject
 								.transform
 								.GetChild(0)
-								.gameObject
-								.GetComponent<SpriteRenderer>();
+								.gameObject;
 
 			rb2D = gameObject.GetComponent<Rigidbody2D>();
 			spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -163,21 +162,32 @@ namespace Unit
 		{
 			PointerEventData data = (PointerEventData)eventData;
 
-			switch (((PointerEventData)eventData).button)
+			switch (data.button)
 			{
 				case PointerEventData.InputButton.Left:
-					setTargetRotation();
+					setTargetRotation(data);
 					break;
 
 				case PointerEventData.InputButton.Right:
-					setTargetVelocity();
+					setTargetVelocity(data);
 					break;
 
 				case PointerEventData.InputButton.Middle:
 					break;
+
 				default:
 					break;
 			}
+
+			var r = spriteWhenDragging.transform.eulerAngles.z;
+			spriteWhenDragging.transform.position = new Vector3
+				(
+					TargetVelocity * Mathf.Cos(r),
+					TargetVelocity * Mathf.Sin(r),
+					0
+				);
+
+			spriteWhenDragging.transform.eulerAngles = new Vector3(0, 0, targetRotation);
 		}
 
 		public void LostHighlight()
@@ -207,14 +217,18 @@ namespace Unit
 			}
 		}
 
-		private void setTargetRotation()
+		private void setTargetRotation(PointerEventData data)
 		{
+			ResourceManager.Cursor.Mode = CursorStatus.Rotate;
 
+			TargetRotation += data.delta.x;
 		}
 
-		private void setTargetVelocity()
+		private void setTargetVelocity(PointerEventData data)
 		{
+			ResourceManager.Cursor.Mode = CursorStatus.ChangeVelocity;
 
+			TargetVelocity += data.delta.x;
 		}
 
 		private void changeRotation()

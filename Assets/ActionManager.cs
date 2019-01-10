@@ -144,6 +144,49 @@ public static class Command
 	}
 }
 
+public class TestClass
+{
+	private static Dictionary<string, object> DelegateList = new Dictionary<string, object>();
+
+	public static void ExecuteCommand(string command)
+	{
+		Queue<string> commandList = new Queue<string>(command.Split(' '));
+
+		switch ((Commands)Enum.Parse(typeof(Commands), commandList.Dequeue()))
+		{
+			case Commands.CHNG:
+				change(commandList);
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	private static void change(Queue<string> commandList)
+	{
+		DelegateList.Add("Change", null);
+
+		switch ((Commands)Enum.Parse(typeof(Commands), commandList.Dequeue()))
+		{
+			case Commands.POSN:
+				position(commandList);
+				break;
+
+			case Commands.ROTN:
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	private static void position(Queue<string> commandList)
+	{
+
+	}
+}
+
 public enum Commands
 {
 	#region Game controlling commands
