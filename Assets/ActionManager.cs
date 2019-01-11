@@ -178,7 +178,7 @@ public class TestClass
 				instructions.AddFunction
 				(
 					"Change",
-					(Dictionary<string, object> p) =>
+					() =>
 					{
 						((GameObject)instructions["GameObject"]).transform.position
 						= (Vector3)instructions["newProperty"];
