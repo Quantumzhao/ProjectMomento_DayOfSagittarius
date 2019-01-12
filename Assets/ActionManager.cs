@@ -36,7 +36,7 @@ public class ActionManager : MonoBehaviour {
 
 	public void ExecuteCommand(string message)
 	{
-		Command.ExecuteCommand(message);
+		TestClass.ExecuteCommand(message);
 	}
 
 	private void testModule(bool isToggled = false)
@@ -153,7 +153,20 @@ public class TestClass
 	{
 		Queue<string> commandList = new Queue<string>(command.Split(' '));
 
-		switch ((Commands)Enum.Parse(typeof(Commands), commandList.Dequeue()))
+		/*****************************************************/
+		/** check if the inputtext is a valid command or not.
+		/** Written by Mike.Guo
+		/**/
+		/**/  String inputCommand = commandList.Dequeue();
+		/**/  
+		/**/  if (!isValidCommand(inputCommand))
+		/**/  {
+		/**/  	return;
+		/**/  }
+		/**/  
+		/*****************************************************/
+		
+		switch ((Commands)Enum.Parse(typeof(Commands), inputCommand))
 		{
 			case Commands.CHNG:
 				change(commandList);
@@ -168,10 +181,23 @@ public class TestClass
 
 	private static void change(Queue<string> commandList)
 	{
+		/*****************************************************/
+		/** check if the inputtext is a valid command or not.
+		/** Written by Mike.Guo
+		/**/
+		/**/  String inputCommand = commandList.Dequeue();
+		/**/  
+		/**/  if (!isValidCommand(inputCommand))
+		/**/  {
+		/**/  	return;
+		/**/  }
+		/**/  
+		/*****************************************************/
+
 		instructions.AddVariable("newProperty", null);
 		instructions.AddVariable("GameObject", null);
 
-		switch ((Commands)Enum.Parse(typeof(Commands), commandList.Dequeue()))
+		switch ((Commands)Enum.Parse(typeof(Commands), inputCommand))
 		{
 			case Commands.POSN:
 				position(commandList);
@@ -209,6 +235,17 @@ public class TestClass
 		{
 			commandList.Dequeue();
 		}
+	}
+
+	private static bool isValidCommand(string inputCommand)
+	{
+		if (!Enum.TryParse(inputCommand, out Commands currentCommand))
+		{
+			Console.WriteLine($"{inputCommand} is not a valid command.");
+			return false;
+		}
+
+		return true;
 	}
 }
 
