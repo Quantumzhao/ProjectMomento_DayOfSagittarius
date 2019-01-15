@@ -202,7 +202,7 @@ namespace Unit
 			GetComponents<CircleCollider2D>()[1].enabled = value;
 		}
 
-		public void DestroySelf()
+		/*public void DestroySelf()
 		{
 			Destroy(gameObject);
 		}
@@ -215,7 +215,7 @@ namespace Unit
 
 				DestroySelf();
 			}
-		}
+		}*/
 
 		private void setTargetRotation(PointerEventData data)
 		{

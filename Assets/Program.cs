@@ -5,21 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace TestCustomizedFunction
+namespace CustomFunction
 {
-	class CustomizedFunctionWrapper
+	class CustomFunctionWrapper
 	{
 		private Dictionary<string, object> tempVariables =
 			new Dictionary<string, object>();
 		private Dictionary<string, Func<object>> functions =
 			new Dictionary<string, Func<object>>();
-		private Dictionary<string, CustomizedFunctionWrapper> funcBlocks =
-			new Dictionary<string, CustomizedFunctionWrapper>();
+		private Dictionary<string, CustomFunctionWrapper> funcBlocks =
+			new Dictionary<string, CustomFunctionWrapper>();
 		private Dictionary<string, object> executionSequence =
 			new Dictionary<string, object>();
 
-		public CustomizedFunctionWrapper() { }
-		public CustomizedFunctionWrapper(
+		public CustomFunctionWrapper() { }
+		public CustomFunctionWrapper(
 			Dictionary<string, object> parameters,
 			KeyValuePair<string, Func<object>> function = new KeyValuePair<string, Func<object>>())
 		{
@@ -71,7 +71,7 @@ namespace TestCustomizedFunction
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="funcBlock"></param>
-		public void AddFunction(string name, CustomizedFunctionWrapper funcBlock)
+		public void AddFunction(string name, CustomFunctionWrapper funcBlock)
 		{
 			funcBlocks.Add(name, funcBlock);
 			executionSequence.Add(name, funcBlocks[name]);
@@ -142,6 +142,23 @@ namespace TestCustomizedFunction
 		{
 			foreach (KeyValuePair<string, object> function in executionSequence)
 				yield return function.Key;
+		}
+	}
+}
+
+namespace MiscUtilities
+{
+	[AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
+	class CollabDevUtilityAttribute : Attribute
+	{
+		public string Comments { get; set; }
+		public string Date { get; set; }
+
+		private string name;
+
+		public CollabDevUtilityAttribute(string developerName)
+		{
+			name = developerName;
 		}
 	}
 }

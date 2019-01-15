@@ -5,7 +5,8 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Reflection;
-using TestCustomizedFunction;
+using CustomFunction;
+using MiscUtilities;
 
 public class ActionManager : MonoBehaviour {
 
@@ -13,7 +14,7 @@ public class ActionManager : MonoBehaviour {
 	{
 		initCursor();
 
-		testModule(true);
+		testModule(false);
 	}
 
 	public void UpdateFlagship(GameObject newFlagship)
@@ -147,26 +148,18 @@ public static class Command
 
 public class TestClass
 {
-	private static CustomizedFunctionWrapper instructions = new CustomizedFunctionWrapper();
+	private static CustomFunctionWrapper instructions = new CustomFunctionWrapper();
 
 	public static void ExecuteCommand(string command)
 	{
-		Queue<string> commandList = new Queue<string>(command.Split(' '));
+		Queue<string> commandList = parse(command);
 
-		/*****************************************************/
-		/** check if the inputtext is a valid command or not.
-		/** Written by Mike.Guo
-		/**/
-		/**/  String inputCommand = commandList.Dequeue();
-		/**/  
-		/**/  if (!isValidCommand(inputCommand))
-		/**/  {
-		/**/  	return;
-		/**/  }
-		/**/  
-		/*****************************************************/
-		
-		switch ((Commands)Enum.Parse(typeof(Commands), inputCommand))
+		if (!Enum.TryParse(commandList.Dequeue(), true, out Commands parsedCommand))
+		{
+			return;
+		}
+
+		switch (parsedCommand)
 		{
 			case Commands.CHNG:
 				change(commandList);
@@ -181,18 +174,15 @@ public class TestClass
 
 	private static void change(Queue<string> commandList)
 	{
-		/*****************************************************/
-		/** check if the inputtext is a valid command or not.
-		/** Written by Mike.Guo
-		/**/
-		/**/  String inputCommand = commandList.Dequeue();
-		/**/  
-		/**/  if (!isValidCommand(inputCommand))
-		/**/  {
-		/**/  	return;
-		/**/  }
-		/**/  
-		/*****************************************************/
+		#region check if the inputtext is a valid command or not. Written by Mike.Guo
+		string inputCommand = commandList.Dequeue();
+		
+		// Contemporarily remove this module
+		/*if (!isValidCommand(inputCommand))
+		{
+			return;
+		}*/
+		#endregion
 
 		instructions.AddVariable("newProperty", null);
 		instructions.AddVariable("GameObject", null);
@@ -237,14 +227,33 @@ public class TestClass
 		}
 	}
 
-	private static bool isValidCommand(string inputCommand)
+	private static Queue<string> parse(string commands)
 	{
+		return new Queue<string>(commands.Split(' '));
+	}
+
+	// Mike.Guo	@	1/10/2019
+	// Quantum	@	1/12/2019
+	private static bool isValidCommand(string inputCommand, out Commands parsedCommand)
+	{
+		/*
 		if (!Enum.TryParse(inputCommand, out Commands currentCommand))
 		{
 			Console.WriteLine($"{inputCommand} is not a valid command.");
 			return false;
 		}
 
+		return true;
+		*/
+
+		if (!Enum.TryParse(inputCommand, true, out Commands newCommand))
+		{
+			Console.WriteLine($"{inputCommand} is not a valid command.");
+			parsedCommand = newCommand;
+			return false;
+		}
+
+		parsedCommand = newCommand;
 		return true;
 	}
 }
