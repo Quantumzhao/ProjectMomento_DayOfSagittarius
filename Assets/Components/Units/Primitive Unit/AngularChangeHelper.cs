@@ -41,7 +41,6 @@ public class AngularChangeHelper : MonoBehaviour
 			}
 
 			yield return null;
-
 		}
 	}
 
